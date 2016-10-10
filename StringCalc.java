@@ -5,6 +5,7 @@ public class StringCalc {
 	/**
 	 * 
 	 * @param numbers: a string of numbers separated by a comma or a newline
+	 * The separator can be changed by starting the input with "//[new separator]\n[numbers]. Regex operators (f.x '+') cannot be used as separators.
 	 * @return result of adding numbers
 	 */
 	public static int add(String numbers) {
@@ -12,8 +13,22 @@ public class StringCalc {
 		String negatives = "";
 		if(numbers == "")
 			return sum;
+		
+		
+		String delimiter = "";
+		
+		// If the input starts with "//", anything up to the next newline will be used as a delimiter instead
+		if(numbers.startsWith("//")) {
+			int i = numbers.indexOf("\n");
+			delimiter = numbers.substring(2, i);
+			numbers = numbers.substring(i+1);
+		}
+		else
+			delimiter = ",|\\n";
+		
+
 		//Split the input string on commas or newlines into an array of strings
-		String[] splitnums = numbers.split(",|\\n");
+		String[] splitnums = numbers.split(delimiter);
 		for(String s : splitnums) {
 			if(s.contains("-")) {
 				if(!negatives.isEmpty())
@@ -65,6 +80,10 @@ public class StringCalc {
 		System.out.println();
 		System.out.println("Checking if numbers greater than 1000 are ignored. Next line should be 1000");
 		System.out.println(add("1000\n1001"));
+		
+		System.out.println("Checking if delimiter can be changed. Next two lines should be 20");
+		System.out.println(add("//;\n5;5;5;5"));
+		System.out.println(add("//z\n5z5z5z5"));
 	}
 
 }
