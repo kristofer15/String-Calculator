@@ -6,7 +6,8 @@ public class StringCalc {
 		int sum = 0;
 		if(numbers == "")
 			return sum;
-		String[] splitnums = numbers.split(",");
+		String[] splitnums = numbers.split(",|\\n");
+		
 		for(String s : splitnums) {
 			sum += Integer.parseInt(s);
 		}
@@ -14,6 +15,9 @@ public class StringCalc {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println("Testing ',' and '\\n' as seperators. Next line should be 6");
+		System.out.println(add("1\n2,3"));
+		
 		System.out.println("Next line should be 0");
 		System.out.println(add(""));
 		
@@ -26,8 +30,9 @@ public class StringCalc {
 		System.out.println(add("3,3"));
 		System.out.println(add("1,1"));
 		
-		System.out.println("Testing add function on 4 numbers. Next line should be 4");
+		System.out.println("Testing add function on 4 numbers. Next two lines should be 4");
 		System.out.println(add("1,1,1,1"));
+		System.out.println(add("1\n1\n1\n1"));
 	}
 
 }
