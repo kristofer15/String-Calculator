@@ -2,21 +2,32 @@ package stringCalc;
 
 public class StringCalc {
 	
+	/**
+	 * 
+	 * @param numbers: a string of numbers separated by a comma or a newline
+	 * @return result of adding numbers
+	 */
 	public static int add(String numbers) {
 		int sum = 0;
 		String negatives = "";
 		if(numbers == "")
 			return sum;
+		//Split the input string on commas or newlines into an array of strings
 		String[] splitnums = numbers.split(",|\\n");
 		for(String s : splitnums) {
 			if(s.contains("-")) {
 				if(!negatives.isEmpty())
-					negatives += ",";
+					negatives += ",";	//add a comma before all but the first number
 				negatives += s;
-				continue;
+				continue;	//Skip the rest of this loop
 			}
+			
+			// Convert string to integer
+			int num = Integer.parseInt(s);	
+			if(num > 1000)
+				continue;	//Don't add numbers above 1000 to the sum
 				
-			sum += Integer.parseInt(s);
+			sum += num;
 		}
 		if(!negatives.isEmpty())
 			throw new IllegalArgumentException("Negatives not allowed: " + negatives);
@@ -50,6 +61,10 @@ public class StringCalc {
 		catch (IllegalArgumentException ex) {
 			System.out.println("IllegalArgumentException caught. Message is: " + ex.getMessage());
 		}
+		
+		System.out.println();
+		System.out.println("Checking if numbers greater than 1000 are ignored. Next line should be 1000");
+		System.out.println(add("1000\n1001"));
 	}
 
 }
