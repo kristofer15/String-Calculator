@@ -7,8 +7,6 @@ public class StringCalc {
 		if(numbers == "")
 			return sum;
 		String[] splitnums = numbers.split(",");
-		if(splitnums.length > 2)
-			throw new IllegalArgumentException("Invalid input: Too many numbers to add. The function accepts 0-2 numbers");
 		for(String s : splitnums) {
 			sum += Integer.parseInt(s);
 		}
@@ -28,14 +26,8 @@ public class StringCalc {
 		System.out.println(add("3,3"));
 		System.out.println(add("1,1"));
 		
-		try {
-			System.out.println("Testing illegal argument, should throw exception");
-			System.out.println(add("1,1,1"));
-		}
-		catch (IllegalArgumentException ex) {
-			System.out.println("IllegalArgumentException caught. Exception message: ");
-			System.out.println(ex.getMessage());
-		}
+		System.out.println("Testing add function on 4 numbers. Next line should be 4");
+		System.out.println(add("1,1,1,1"));
 	}
 
 }
