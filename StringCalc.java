@@ -4,13 +4,22 @@ public class StringCalc {
 	
 	public static int add(String numbers) {
 		int sum = 0;
+		String negatives = "";
 		if(numbers == "")
 			return sum;
 		String[] splitnums = numbers.split(",|\\n");
-		
 		for(String s : splitnums) {
+			if(s.contains("-")) {
+				if(!negatives.isEmpty())
+					negatives += ",";
+				negatives += s;
+				continue;
+			}
+				
 			sum += Integer.parseInt(s);
 		}
+		if(!negatives.isEmpty())
+			throw new IllegalArgumentException("Negatives not allowed: " + negatives);
 		return sum;
 	}
 	
@@ -33,6 +42,14 @@ public class StringCalc {
 		System.out.println("Testing add function on 4 numbers. Next two lines should be 4");
 		System.out.println(add("1,1,1,1"));
 		System.out.println(add("1\n1\n1\n1"));
+		
+		try {
+			System.out.println("Testing illegal input containing negatives, should throw an exception.");
+			System.out.println(add("2,-4,3,-5"));
+		}
+		catch (IllegalArgumentException ex) {
+			System.out.println("IllegalArgumentException caught. Message is: " + ex.getMessage());
+		}
 	}
 
 }
